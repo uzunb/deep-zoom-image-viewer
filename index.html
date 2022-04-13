@@ -11,18 +11,39 @@
       <h1>Hello OpenSeaDragon!<br></h1>
     </div>
 
-    <div id="openseadragon1" style="width: 300px; height: 300px;"></div>
+    <div id="openseadragon1" style="width: 500px; height: 500px;"></div>
     <script src="node_modules\openseadragon\build\openseadragon\openseadragon.min.js"></script>
     <script type="text/javascript">
         var viewer = OpenSeadragon({
             id: "openseadragon1",
+            prefixUrl: "node_modules/openseadragon/build/openseadragon/images/",
             tileSources: {
                 type: 'image',
-                url:  'images\\sample2.jpg'
-            }
+                url:  'images/sample2.jpg'
+            },
+            mouseTracker : new OpenSeadragon.MouseTracker({
+                element: document.getElementById('openseadragon1')
+            })
         });
 
-        viewer.addHandler('canvas-click', function(event) {
+        // Add Event that called mouseMoveEvent to viewer. 
+        // This will be work when the mouse cursor move on the canvas.
+        viewer.mouseTracker.moveHandler = function(event) {
+          // The canvas-click event gives us a position in web coordinates.
+          var webPoint = event.position;
+
+          // Convert that to viewport coordinates, the lingua franca of OpenSeadragon coordinates.
+          var viewportPoint = viewer.viewport.pointFromPixel(webPoint);
+
+          // Convert from viewport coordinates to image coordinates.
+          var imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
+
+          // Show the results.
+          console.log(webPoint.toString(), viewportPoint.toString(), imagePoint.toString());        
+        };
+
+
+        viewer.addHandler('canvas-enter', function(event) {
           // The canvas-click event gives us a position in web coordinates.
           var webPoint = event.position;
 
