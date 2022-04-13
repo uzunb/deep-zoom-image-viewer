@@ -1,0 +1,21 @@
+/* styles.css */
+
+/* Add styles here to customize the appearance of your app */
+
+.header img {
+    float: left;
+    width: 75px;
+    height: 75px;
+    background: rgba(255, 255, 255, 0);
+}
+
+.header h1 {
+position: relative;
+top: 18px;
+left: 10px;
+}
+
+body {
+    max-width: max-content;
+    margin: 0 auto;
+}

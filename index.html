@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link href="./styles.css" rel="stylesheet">
+    <title>Hello OpenSeaDragon!</title>
+  </head>
+  <body>
+    <div class="header">
+      <img src="https://openseadragon.github.io/images/logo.png" alt="OpenSeaDragon Logo" />
+      <h1>Hello OpenSeaDragon!<br></h1>
+    </div>
+
+    <div id="openseadragon1" style="width: 300px; height: 300px;"></div>
+    <script src="node_modules\openseadragon\build\openseadragon\openseadragon.min.js"></script>
+    <script type="text/javascript">
+        var viewer = OpenSeadragon({
+            id: "openseadragon1",
+            tileSources: {
+                type: 'image',
+                url:  'images\\sample2.jpg'
+            }
+        });
+
+        viewer.addHandler('canvas-click', function(event) {
+          // The canvas-click event gives us a position in web coordinates.
+          var webPoint = event.position;
+
+          // Convert that to viewport coordinates, the lingua franca of OpenSeadragon coordinates.
+          var viewportPoint = viewer.viewport.pointFromPixel(webPoint);
+
+          // Convert from viewport coordinates to image coordinates.
+          var imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
+
+          // Show the results.
+          console.log(webPoint.toString(), viewportPoint.toString(), imagePoint.toString());
+      });
+    </script>
+
+    <!-- <script src="./renderer.js"></script> -->
+
+    <p id="demo"> Batuhan UZUN </p>
+  </body>
+</html>
